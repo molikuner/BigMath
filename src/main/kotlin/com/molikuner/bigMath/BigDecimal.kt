@@ -14,8 +14,8 @@ fun BigDecimal.factorialSave(): BigInteger {
     return this.calculateFactorial()
 }
 
-fun BigDecimal.fraction(): Fraction {
-    return this.calculateFraction()
+fun BigDecimal.fraction(accuracy: Int = DEFAULT_ACCURACY): Fraction {
+    return this.calculateFraction(accuracy)
 }
 
 fun BigDecimal.pow(y: BigDecimal, accuracy: Int = DEFAULT_ACCURACY): BigDecimal {

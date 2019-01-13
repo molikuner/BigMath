@@ -10,7 +10,7 @@ internal fun BigDecimal.calculatePow(y: BigDecimal, accuracy: Int): BigDecimal {
     val result = this.integerPow(y.toBigInteger())
     if (Math.max(0, y.stripTrailingZeros().scale()) > 0) {
         val fraction = y.fraction()
-        return result * this.root(fraction.dividend, accuracy).integerPow(fraction.divisor)
+        return result * this.root(fraction.divisor, accuracy).integerPow(fraction.dividend)
     } else {
         return result
     }
@@ -28,6 +28,12 @@ internal fun BigDecimal.integerPow(y: BigInteger): BigDecimal {
 
 private fun BigDecimal.pow(x: BigDecimal, y: BigInteger): BigDecimal {
     return if (y > BigInteger.ZERO) {
-        this * x.pow(x, y - BigInteger.ONE)
+        var result = this
+        var currentY = y
+        do {
+            result *= x
+            currentY -= BigInteger.ONE
+        } while (currentY > BigInteger.ZERO)
+        result
     } else this
 }

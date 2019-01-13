@@ -13,7 +13,7 @@ internal fun BigDecimal.calculateFraction(accuracy: Int): Fraction {
         appliedFraction = when {
             df < this -> appliedFraction.copy(dividend = appliedFraction.dividend + BigInteger.ONE)
             df > this -> appliedFraction.copy(
-                    dividend = this.multiply(appliedFraction.divisor.toBigDecimal()).setScale(0, RoundingMode.HALF_UP).toBigInteger(),
+                    dividend = this.multiply(appliedFraction.divisor.toBigDecimal().inc()).setScale(0, RoundingMode.HALF_UP).toBigInteger(),
                     divisor = appliedFraction.divisor + BigInteger.ONE
             )
             else -> return appliedFraction
